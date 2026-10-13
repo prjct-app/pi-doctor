@@ -1,34 +1,59 @@
 # pi-doctor
 
-Keeps Pi's packages and extensions lean. It reports what is loaded, disabled, leftover, or installed but not loaded, and it can enable, disable, clean, or uninstall them. Nothing is deleted outright: removed files go to a backup folder and every removal is recorded in a SQLite manifest.
+[![pi-doctor — for PI Agent](https://raw.githubusercontent.com/prjct-app/pi-doctor/main/docs/cover.png)](https://pi.dev)
+
+Inspect Pi extensions and skills in the shared docked panel. Doctor explains
+purpose, observable capabilities, logical disk footprint and context estimates,
+then lets the active model recommend what to keep, use on demand or review.
+
+Install with `pi install npm:@prjct.app/pi-doctor`, then reload Pi.
 
 ## Commands
 
-| Command | What it does |
+| Command | Action |
 | --- | --- |
-| `/pi-doctor` | Report. Read only. |
-| `/pi-doctor disable <file.ts>` | Stops loading an extension. Settings backed up first. Run `/reload`. |
-| `/pi-doctor enable <file.ts>` | Loads it again. |
-| `/pi-doctor clean` | Lists backup copies and disabled extensions that would be moved. |
-| `/pi-doctor clean --yes` | Moves them to `~/.prjct/pi-doctor/backups/clean-<time>/` and records them. |
-| `/pi-doctor remove <spec>` | Shows what would be uninstalled. |
-| `/pi-doctor remove <spec> --yes` | Uninstalls the package through Pi's SDK and removes it from settings. |
+| `/doctor` | Open the panel and collect facts without a model call. |
+| `/doctor scan` | Refresh the read-only audit. |
+| `/doctor analyze` | Confirm an analysis of the existing scan using the active model and current context. |
+| `/doctor cancel` | Cancel the Doctor operation; retain collected facts. |
+| `/doctor report` | Print the same audit details as text. |
 
-## Where things live
+Panel controls: `s` scan, `a` analyze, `b` cancel, `f` filter, `o` sort,
+`/` search and `v` switch to management. The shared TUI handles navigation,
+detail focus, help and closing.
 
-- `~/.prjct/pi-doctor/backups/` holds each backup, named by operation and time.
-- `~/.prjct/pi-doctor/manifest.sqlite` records kind, name, origin, SHA-256, backup path and time for every removal.
-- Nothing is written inside Pi's folder except the changes you asked for in `settings.json`.
+In management: `e` enable, `d` disable, `x` uninstall a package and `c`
+clean backup/disabled files. Destructive actions require confirmation and back up
+settings first. Run `/reload` after changing extension loading.
 
-## How Pi loads extensions
+## Measurements and analysis
 
-Pi loads every `*.ts` in `extensions/` unless `settings.json` has a `-` entry for it. So a file that is not listed is still active. Backup copies (`.bak`, `.off`) are never loaded.
+- Package/resource logical bytes exclude `node_modules` and `.git`; resolved
+  runtime dependencies form a separate graph deduplicated by physical path.
+- Skill catalog advertisement, potential instruction load and retained direct
+  instruction/reference reads are separate.
+- Tool declarations are estimated before provider/loadout transforms. Tokens use
+  characters / 4; dynamic injection and indirect reads can remain unknown.
+- Discovery uses configured packages, effective SDK skills and runtime capability
+  metadata. Excluded resources and hook-only extensions may be undiscoverable.
+- Analysis reads bounded resource excerpts and current session context, not global
+  histories or auth files. Private filenames are excluded and common secrets
+  redacted. Resource text is untrusted evidence.
+- Analysis temporarily enables only Doctor's evidence/assessment tools, restoring
+  the previous tools afterward. Recommendations never change configuration.
+
+## Stored management data
+
+`~/.prjct/pi-doctor/backups/` holds operation backups.
+`~/.prjct/pi-doctor/manifest.sqlite` records removal origin, SHA-256, backup path
+and time. Audit facts and recommendations remain session-local.
 
 ## Development
 
 ```bash
-npm test
 npm run check
+npm test
 ```
 
-Tests use temporary folders through `PRJCT_HOME`, so they never touch your real Pi or `~/.prjct`.
+Tests use isolated temporary fixtures. See the [audit design](docs/doctor-audit-sdd.md)
+and [implementation ticket](tickets/doctor-audit.md).

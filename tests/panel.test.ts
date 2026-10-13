@@ -53,8 +53,8 @@ test("enable action is only shown on a disabled extension", () => {
   const spec = doctorPanelSpec({ reload: async () => inv, request: () => undefined }, makeState(inv));
   const enable = spec.actions?.find(a => a.key === "e");
   assert.ok(enable);
-  assert.equal(enable?.when?.({ id: "ext:a.ts" } as never), false, "active is not enableable");
-  assert.equal(enable?.when?.({ id: "ext:off.ts" } as never), true, "disabled is enableable");
+  assert.equal(enable?.when?.({ id: "ext:a.ts", label: "ext:a.ts" }), false, "active is not enableable");
+  assert.equal(enable?.when?.({ id: "ext:off.ts", label: "ext:off.ts" }), true, "disabled is enableable");
 });
 
 test("disable action is only shown on an active extension", () => {
@@ -69,8 +69,8 @@ test("disable action is only shown on an active extension", () => {
   const spec = doctorPanelSpec({ reload: async () => inv, request: () => undefined }, makeState(inv));
   const disable = spec.actions?.find(a => a.key === "d");
   assert.ok(disable);
-  assert.equal(disable?.when?.({ id: "ext:a.ts" } as never), true);
-  assert.equal(disable?.when?.({ id: "ext:off.ts" } as never), false);
+  assert.equal(disable?.when?.({ id: "ext:a.ts", label: "ext:a.ts" }), true);
+  assert.equal(disable?.when?.({ id: "ext:off.ts", label: "ext:off.ts" }), false);
 });
 
 test("remove action is only shown on a package and requires confirm", () => {
@@ -83,8 +83,8 @@ test("remove action is only shown on a package and requires confirm", () => {
   const remove = spec.actions?.find(a => a.key === "x");
   assert.ok(remove);
   assert.equal(remove?.confirm, true, "remove must confirm");
-  assert.equal(remove?.when?.({ id: "pkg:npm:@prjct.app/pi-ui@0.1.4" } as never), true);
-  assert.equal(remove?.when?.({ id: "ext:nothing" } as never), false);
+  assert.equal(remove?.when?.({ id: "pkg:npm:@prjct.app/pi-ui@0.1.4", label: "pkg:npm:@prjct.app/pi-ui@0.1.4" }), true);
+  assert.equal(remove?.when?.({ id: "ext:nothing", label: "ext:nothing" }), false);
 });
 
 test("clean is bulk and only shown when there is something to clean", () => {
@@ -121,11 +121,11 @@ test("actions send the right intents through ops.request", () => {
   const find = (key: string) => spec.actions?.find(a => a.key === key);
   const close = () => undefined;
   const panel = { refresh() {}, notice() {}, select() {}, close };
-  find("d")?.run({ id: "ext:a.ts" } as never, panel);
+  find("d")?.run({ id: "ext:a.ts", label: "ext:a.ts" }, panel);
   assert.deepEqual(intents.at(-1), { action: "disable", name: "a.ts" });
-  find("e")?.run({ id: "ext:off.ts" } as never, panel);
+  find("e")?.run({ id: "ext:off.ts", label: "ext:off.ts" }, panel);
   assert.deepEqual(intents.at(-1), { action: "enable", name: "off.ts" });
-  find("x")?.run({ id: "pkg:npm:@prjct.app/pi-ui@0.1.4" } as never, panel);
+  find("x")?.run({ id: "pkg:npm:@prjct.app/pi-ui@0.1.4", label: "pkg:npm:@prjct.app/pi-ui@0.1.4" }, panel);
   assert.deepEqual(intents.at(-1), { action: "remove", spec: "npm:@prjct.app/pi-ui@0.1.4" });
   find("c")?.run(undefined, panel);
   assert.deepEqual(intents.at(-1), { action: "clean" });

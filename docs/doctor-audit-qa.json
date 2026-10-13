@@ -1,0 +1,174 @@
+{
+  "description": "Verify Doctor 0.3.0 against the approved audit PRD, ticket and shared-TUI requirement. The owner explicitly authorized npm publication and installation. Independent QA and real active-model judgment remain pending; release authorization is not a test pass.",
+  "ticketRef": "extensions/seguridad/pi-doctor/tickets/doctor-audit.md",
+  "items": [
+    {
+      "id": "shared-tui",
+      "text": "Reuse the existing Doctor panel and pi-tui-kit. Do not add a renderer or duplicate navigation, search, keyboard handling, layout or styles. Keep collection, assessment and panel data responsibilities separate.",
+      "source": "user_request",
+      "sourceRef": "Latest user steering message",
+      "sourceText": "debes reutilizar la TUI que tenemos no se debe reescribir SOLID DRY KISS",
+      "required": true,
+      "observe": "Inspect index.ts and src/audit/panel.ts for composition of doctorPanelSpec and openPanel. Render the resulting spec with the real shared createPanel at widths 120, 60 and 32. Test search, navigation, filters and the management view."
+    },
+    {
+      "id": "DA-01",
+      "text": "Opening Doctor and scanning call no model. Show progress, cancellation, results and failures without a false successful verdict.",
+      "source": "ticket",
+      "sourceRef": "tickets/doctor-audit.md AC; docs/doctor-audit-prd.md DA-01",
+      "required": true,
+      "observe": "Open /doctor in an isolated TUI profile. Scan, cancel during progress and scan again. Verify retained previous facts, a visible canceled/failed state and zero model requests before confirmed analysis."
+    },
+    {
+      "id": "DA-02",
+      "text": "Explain discovered extension and skill purpose, observable capabilities and evidence provenance. Mark missing or dynamic capabilities as unknown.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-02; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Use fixtures with a package description, command, tool, literal hook and skill instructions. Inspect detail sections. Verify hook candidates are not called proven registrations and configured packages are not called loaded without metadata."
+    },
+    {
+      "id": "DA-03",
+      "text": "Keep logical resource/package bytes separate from shared runtime dependencies, context estimates and RAM.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-03; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Compare filesystem fixture sizes with the report. Give two owners one physical dependency and verify one graph entry with both owners. Verify missing dependencies and incomplete manifests stay partial."
+    },
+    {
+      "id": "DA-04",
+      "text": "Label observable extension context contributions, declaration estimates and unknown dynamic attribution. Do not present overlapping rows as a unique billing total.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-04",
+      "required": true,
+      "observe": "Test active and deferred tool schemas and retained successful tool results. Check that an empty declared set gives zero schema estimate, unmeasured contributions remain unknown, and detail explains pre-provider/loadout scope."
+    },
+    {
+      "id": "DA-05",
+      "text": "Separate advertised skill catalog entries, potential instruction load and retained direct instruction/reference reads. Respect current compaction and context edits.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-05; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Use an advertised unread skill, an unadvertised skill, repeated reads and a reference read. Apply context omission and compaction. Verify full instructions are not counted as current injection before a read and removed text is not resurrected."
+    },
+    {
+      "id": "DA-06",
+      "text": "Distinguish measured bytes, character counts, token estimates and unavailable exact provider attribution.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-06",
+      "required": true,
+      "observe": "Check all cost labels and evidence for the characters/4 estimate method. Make instructions unreadable and verify unknown, not zero. Verify no exact billing, RAM or lifetime-usage claims."
+    },
+    {
+      "id": "DA-07",
+      "text": "Record one evidence-backed assessment per discovered resource, with contribution, overall workflow value, project relevance, tradeoffs, reasons, evidence IDs, uncertainty and an allowed recommendation.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-07; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Confirm an analysis with the currently selected model in an isolated session. Read every evidence page and record assessments. Independently inspect the substantive judgments. Reject malformed batches, unknown resources and foreign evidence IDs without changing previous valid results."
+    },
+    {
+      "id": "DA-08",
+      "text": "Do not recommend removal solely because no use was observed. Consider safety, UI/workflow roles, dependencies and relevance beyond the current task.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-08; tickets/doctor-audit.md TC5",
+      "required": true,
+      "observe": "Run real active-model analysis with a zero-call safety extension, a command-only UI extension and a skill not needed by the current task. Inspect reasons and cited evidence. This semantic-quality check is pending, not established by validator tests."
+    },
+    {
+      "id": "DA-09",
+      "text": "Provide global priorities, per-resource detail, filtering, sorting, shared search and a useful text report.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-09; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Inspect all/extensions/skills/review filters and name/disk/context/decision sorts. Check unknowns remain visible. Compare /doctor report detail with the same PanelSpec data used by the TUI."
+    },
+    {
+      "id": "DA-10",
+      "text": "Keep measured facts after missing model, canceled analysis, incomplete coverage, send failure and invalid model output. Do not invent complete verdicts.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-10; tickets/doctor-audit.md TC3",
+      "required": true,
+      "observe": "Deny consent, remove the active model, cancel work, reject invalid assessments and settle an incomplete batch. Verify facts remain and semantic status is partial/pending/failed. Reject stale session and report results."
+    },
+    {
+      "id": "DA-11",
+      "text": "Read only resource evidence and current projected context, not global session files or auth files. Use bounded, redacted, untrusted excerpts and explicit model/data consent.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-11; tickets/doctor-audit.md TC2",
+      "required": true,
+      "observe": "Use private-file sentinels, a source file that throws if executed and child symlinks. Verify scan/analysis tools expose no sentinel secret and do not execute source. Check consent displays the current model and data scope. Cancel or change context during consent and verify no stale analysis starts."
+    },
+    {
+      "id": "DA-12",
+      "text": "Scan and analysis never edit configuration or install packages. Existing destructive management actions retain confirmations and backups. Preserve the actual npm-only installation.",
+      "source": "ticket",
+      "sourceRef": "docs/doctor-audit-prd.md DA-12; tickets/doctor-audit.md AC",
+      "required": true,
+      "observe": "Compare fixture settings before and after scan and recommendations. Exercise management regressions only on disposable fixtures. Verify confirmation and backup behavior. Verify real-profile changes are limited to the explicitly authorized npm 0.3.0 release installation."
+    },
+    {
+      "id": "analysis-tool-guard",
+      "text": "During approved analysis enable only Doctor evidence/assessment tools, block other tool calls, and restore the previous tool selection on completion, cancellation and send failure.",
+      "source": "inferred_from_diff",
+      "sourceRef": "index.ts tool_call handler; src/audit/controller.ts",
+      "required": true,
+      "observe": "Start approved analysis with a known tool selection. Attempt a non-audit tool call and verify it is blocked. Complete, cancel and force a send failure in separate fixture runs; verify the original selection is restored."
+    },
+    {
+      "id": "explicit-text-rescan",
+      "text": "An explicit /doctor scan refreshes an existing report in non-TUI mode. Built-in coding tools are not extension rows.",
+      "source": "inferred_from_diff",
+      "sourceRef": "index.ts report rescan parameter; src/audit/scan.ts engineTools filter",
+      "required": true,
+      "observe": "Run /doctor report, change fixture instructions and run /doctor scan in print mode. Verify new content appears. Verify builtin:read is absent while actual built-in extensions remain eligible."
+    },
+    {
+      "id": "delivery-evidence",
+      "text": "Supply a candidate-bound manifest, current QA contract, passing package/type/immutable checks, package-content verification and installed-host integration evidence. Keep QA and owner approval separate.",
+      "source": "ticket",
+      "sourceRef": "tickets/doctor-audit.md DoR and DoD",
+      "required": true,
+      "observe": "Verify the approved PRD/SDD and checked DoR. Match source digests with the candidate evidence. Reproduce npm run check, npm test, git diff --check, npm pack --dry-run and the isolated installed-SDK cohort test. Record independent QA and a separate owner decision."
+    },
+    {
+      "id": "publish-install",
+      "text": "Publish Doctor and install the exact published version from npm, without local runtime extensions.",
+      "source": "user_request",
+      "sourceRef": "Latest owner release instruction",
+      "sourceText": "public ae instala",
+      "required": true,
+      "observe": "Verify registry version 0.3.0 and integrity match the tested tarball. Verify npm-installed source files match the artifact, real settings pin 0.3.0 and no local extension files were added. Load the npm-installed package in the installed SDK with npm Team/Palette and exercise the Doctor command."
+    }
+  ],
+  "invariants": [
+    "Use Pi public SDK and the existing shared docked TUI; no parallel renderer or context-pruning system.",
+    "All collected recommendations are session-local data until the owner explicitly invokes an existing management action.",
+    "No global session-history scan, credential-file content read, inspected-code execution, package repair or automatic configuration mutation.",
+    "The active model and reasoning level own semantic judgments; no classifier, nested completion or substitute model.",
+    "The real runtime profile stays npm-only. Only explicitly authorized release installation may change its package pins."
+  ],
+  "regressionRisks": [
+    "Shared toolkit reserves k for navigation; cancellation must use a non-reserved key and scans must not hold the toolkit busy lock.",
+    "Consent, scan cancellation, session changes and late model results can race.",
+    "Temporary tool selection must be restored after failure, cancellation and settlement.",
+    "Context costs can overlap; indirect reads, dynamic injection and excluded-resource discovery remain limited.",
+    "Bounded excerpts and common-secret redaction are not universal secret detection.",
+    "Package manifests and shared dependency resolution can be missing, malformed or symlinked.",
+    "Semantic judgments may confuse zero observed use with zero workflow value despite passing schema validation.",
+    "SDK 1.1.0 package tests and installed SDK 1.2.0 may differ in lifecycle behavior."
+  ],
+  "definitionOfReady": [
+    "Owner-approved audit baseline and privacy/model decisions are recorded.",
+    "Public SDK discovery and compaction-aware projection contracts have been inspected.",
+    "Existing source/tests are available and fixture checks need no credential.",
+    "The implementation began from a clean work tree; current dirty/untracked files belong to this candidate."
+  ],
+  "definitionOfDone": [
+    "Every approved acceptance condition is independently observed or explicitly remains blocked.",
+    "Package tests, typecheck, immutable-binding checks and affected installed-host integration pass for the exact candidate.",
+    "A content manifest and current QA contract accompany the implementation handoff.",
+    "Independent review/QA and owner candidate approval have separate recorded states.",
+    "Publication, installation or release occurs only after separate explicit authorization."
+  ]
+}
