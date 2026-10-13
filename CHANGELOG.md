@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+- Add the English package cover to the README, npm archive, and Pi gallery metadata.
+- Publish matching version tags through the package GitHub Actions workflow.
+
+
 ## 0.3.0
 
 - Add extension/skill purpose, capability evidence, separate disk/context costs and shared dependency measurements to the existing Doctor panel.

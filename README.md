@@ -1,10 +1,12 @@
 # pi-doctor
 
+[![pi-doctor — for PI Agent](https://raw.githubusercontent.com/prjct-app/pi-doctor/main/docs/cover.png)](https://pi.dev)
+
 Inspect Pi extensions and skills in the shared docked panel. Doctor explains
 purpose, observable capabilities, logical disk footprint and context estimates,
 then lets the active model recommend what to keep, use on demand or review.
 
-Available in npm 0.3.0.
+Install with `pi install npm:@prjct.app/pi-doctor`, then reload Pi.
 
 ## Commands
 
