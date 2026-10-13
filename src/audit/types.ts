@@ -1,0 +1,62 @@
+export type Estimate = Readonly<{ characters: number; tokens: number; method: 'ceil(characters / 4)' }>;
+export const estimate = (text: string): Estimate => ({ characters: text.length, tokens: Math.ceil(text.length / 4), method: 'ceil(characters / 4)' });
+export type Evidence = Readonly<{ id: string; source: string; text: string }>;
+export type Capability = Readonly<{ kind: 'tool' | 'command' | 'hook candidate'; name: string; description: string }>;
+export type ContextCost = Readonly<{
+  catalog?: Estimate;
+  declarations?: Estimate;
+  instructions?: Estimate;
+  retainedReads?: Estimate;
+  readCount: number;
+  observedCalls: number;
+  notes: readonly string[];
+}>;
+export type AuditResource = Readonly<{
+  id: string;
+  kind: 'extension' | 'skill';
+  name: string;
+  path: string;
+  source: string;
+  state: string;
+  purpose: string;
+  bytes?: number;
+  sizeComplete: boolean;
+  dependencies: readonly string[];
+  capabilities: readonly Capability[];
+  context: ContextCost;
+  evidence: readonly Evidence[];
+  warnings: readonly string[];
+}>;
+export type Dependency = Readonly<{ path: string; name: string; bytes: number; complete: boolean; owners: readonly string[] }>;
+export type AuditReport = Readonly<{
+  id: string;
+  sessionId: string;
+  at: string;
+  cwd: string;
+  resources: readonly AuditResource[];
+  dependencies: readonly Dependency[];
+  warnings: readonly string[];
+  catalogOverhead: Estimate;
+}>;
+export const AUDIT_TOOL_NAMES = ['doctor_read_audit', 'doctor_record_assessments'] as const;
+export const RECOMMENDATIONS = ['keep', 'on-demand', 'review', 'disable', 'remove'] as const;
+export type Recommendation = typeof RECOMMENDATIONS[number];
+export type Assessment = Readonly<{
+  resourceId: string;
+  contribution: string;
+  workflowValue: string;
+  projectRelevance: string;
+  tradeoffs: string;
+  recommendation: Recommendation;
+  reasons: readonly string[];
+  evidenceIds: readonly string[];
+  uncertainty: string;
+}>;
+export type AuditState = Readonly<{
+  report?: AuditReport;
+  assessments: readonly Assessment[];
+  phase: 'idle' | 'scanning' | 'analyzing' | 'complete' | 'partial' | 'canceled' | 'failed';
+  progress: string;
+}>;
+export const emptyAudit = (): AuditState => ({ assessments: [], phase: 'idle', progress: 'Press s to scan extensions and skills.' });
+export const errorText = (error: unknown): string => error instanceof Error ? error.message : String(error);
