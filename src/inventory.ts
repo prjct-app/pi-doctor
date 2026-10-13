@@ -5,8 +5,10 @@
 // listed is still active. Only "-" disables, and backup copies are never loaded.
 export type ExtensionStatus = "active" | "disabled" | "backup";
 export type ExtensionFile = { name: string; status: ExtensionStatus };
+/** A package spec as it appears in settings.json, e.g. "npm:@prjct.app/pi-ui@0.1.4". */
+export type PackageSpec = string;
 export type Inventory = {
-  packages: string[];
+  packages: PackageSpec[];
   extensions: ExtensionFile[];
   installedNotLoaded: string[];
 };
